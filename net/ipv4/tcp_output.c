@@ -269,6 +269,7 @@ static u16 tcp_select_window(struct sock *sk)
 	u32 cur_win = tcp_receive_window(tp);
 	u32 new_win = __tcp_select_window(sk);
 
+
 	/* Never shrink the offered window */
 	if (new_win < cur_win) {
 		/* Danger Will Robinson!
@@ -280,8 +281,13 @@ static u16 tcp_select_window(struct sock *sk)
 		 */
 		new_win = ALIGN(cur_win, 1 << tp->rx_opt.rcv_wscale);
 	}
+	if(tp->rcv_rtt_est.rwnd == 0)
+		tp->rcv_rtt_est.rwnd = new_win;
+
 	tp->rcv_wnd = new_win;
 	tp->rcv_wup = tp->rcv_nxt;
+
+	new_win = tp->rcv_rtt_est.rwnd;
 
 	/* Make sure we do not exceed the maximum possible
 	 * scaled window.

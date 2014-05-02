@@ -288,6 +288,9 @@ struct tcp_sock {
 		u32	rtt;
 		u32	seq;
 		u32	time;
+
+		u32 rtt_min;
+		u32 rwnd;
 	} rcv_rtt_est;
 
 /* Receiver queue space */

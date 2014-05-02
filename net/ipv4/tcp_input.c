@@ -478,7 +478,11 @@ static void tcp_rcv_rtt_update(struct tcp_sock *tp, u32 sample, int win_dep)
 	}
 
 	if (tp->rcv_rtt_est.rtt != new_sample)
+	{
 		tp->rcv_rtt_est.rtt = new_sample;
+		tp->rcv_rtt_est.rtt_min = min(new_sample, tp->rcv_rtt_est.rtt_min);
+		tp->rcv_rtt_est.rwnd = 2 * tp->rcv_rtt_est.rtt_min * tp->rcv_wnd / new_sample;
+	}
 }
 
 static inline void tcp_rcv_rtt_measure(struct tcp_sock *tp)
