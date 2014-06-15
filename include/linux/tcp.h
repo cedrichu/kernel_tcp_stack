@@ -203,6 +203,7 @@ struct tcp_sock {
 
 /* RTT measurement */
 	u32	srtt;		/* smoothed round trip time << 3	*/
+	u32	srtt_min;   /* rtt estimation without congestion*/
 	u32	mdev;		/* medium deviation			*/
 	u32	mdev_max;	/* maximal mdev for the last rtt period	*/
 	u32	rttvar;		/* smoothed mdev_max			*/

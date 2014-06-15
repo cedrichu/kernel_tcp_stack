@@ -690,6 +690,7 @@ static void tcp_rtt_estimator(struct sock *sk, const __u32 mrtt)
 		tp->mdev_max = tp->rttvar = max(tp->mdev, tcp_rto_min(sk));
 		tp->rtt_seq = tp->snd_nxt;
 	}
+	tp->srtt_min = min(tp->srtt, tp->srtt_min);
 }
 
 /* Set the sk_pacing_rate to allow proper sizing of TSO packets.

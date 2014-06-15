@@ -393,6 +393,7 @@ void tcp_init_sock(struct sock *sk)
 	tp->snd_cwnd = TCP_INIT_CWND;
     /*initialize rtt_min to a very large number*/
 	tp->rcv_rtt_est.rtt_min = TCP_INFINITE_SSTHRESH;
+	tp->srtt_min = TCP_INFINITE_SSTHRESH;
 	/* See draft-stevens-tcpca-spec-01 for discussion of the
 	 * initialization of these values.
 	 */
